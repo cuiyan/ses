@@ -1,0 +1,147 @@
+html{
+	background:#eee;
+}
+*{
+	margin:0 auto;
+	font-size:14px;
+}
+.fl{
+	float:left;
+}
+.fr {
+	float:right;
+} 
+.clear{
+	clear:both;
+}
+.context_box{
+	width:320px;
+	margin:0 auto;
+	overflow:hidden;
+}
+.banner { position: relative; overflow: auto; }
+    .banner li { list-style: none; }
+        .banner ul li { float: left; }
+.context_box .banner_box img{
+	width:320px;
+	border:0;
+}
+.context_box .warp_box{
+	width:320px;
+}
+.warp_box .link_us{
+	line-height:36px;
+	font-size:16px;
+	text-align:center;
+	color:#ff9c00;
+	font-weight:bold;
+	background:#fff;
+}
+.warp_box .nav_img{
+	display:block;
+	width:220px;
+	height:100px;
+	background:#fff;
+	margin-top:5px;
+}
+.warp_box .nav_title{
+	display:block;
+	width:92px;
+	height:92px;
+	background:#a800ff;
+	margin-top:5px;
+	color:#fff;
+	padding:4px;
+}
+
+.warp_box .nav_title p{
+	font-size:10px;
+}
+.warp_box .nav_title h2{
+	font-size:14px;
+	margin-top:26px;
+}
+.warp_box .nav_img.nav01_img{
+	background:url(../img/nav01.jpg) 0 0 no-repeat;
+	background-size:100% auto;
+}
+.warp_box .nav_img.nav02_img{
+	background:url(../img/nav02.jpg) 0 0 no-repeat;
+	background-size:100% auto;
+}
+.warp_box .nav_img.nav03_img{
+	background:url(../img/nav03.jpg) 0 0 no-repeat;
+	background-size:100% auto;
+}
+.warp_box .nav_img.nav04_img{
+	background:url(../img/nav04.jpg) 0 0 no-repeat;
+	background-size:100% auto;
+}
+.warp_box .nav_title.nav02_title{
+	background:#ff9c00;
+}
+.warp_box .nav_title.nav03_title{
+	background:#05d000;
+}
+.warp_box .nav_title.nav04_title{
+	background:#00d8f2;
+}
+.warp_box .article {
+	padding:5px;
+}
+.warp_box .article_title {
+	padding:5px;
+	font-size:30px;
+	border-bottom:1px solid #ccc;
+	border-top:4px solid #05d000;
+}
+.warp_box .article  p {
+	line-height:24px;
+	text-indent:2em;
+}
+.article table {
+    width: 100%;
+    border-collapse: collapse;
+    border-spacing: 0;
+    border-left: 1px solid #ddd;
+    border-top: 1px solid #ddd;
+}
+.article th,td {
+    border-right: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
+    padding: 6px;
+    background: #fff;
+    text-align: center;
+}
+.article th {
+    color:#fff;
+    background: #626f8e;
+}
+input.form-control {
+margin: 5px;
+padding: 4px;
+width: 300px;
+height: 32px;
+line-height: 32px;
+border: 1px solid #ccc;
+border-radius: 4px;
+}
+.submit_btn {
+display: block;
+margin: 5px auto;
+margin-top:20px;
+width: 308px;
+height: 40px;
+line-height: 40px;
+color: #fff;
+background: #05d000;
+border: 1px solid #04b600;
+border-radius: 4px;
+}
+.context_box .footer{
+	background:#ff9c00;
+	margin-top:20px;
+	line-height:36px;
+	text-align:center;
+	color:#fff;
+}

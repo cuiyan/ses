@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
+	
+	<bean id="getAccessTokenDetail" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">   
+		<property name="targetObject" ref="wechatQuartzServiceImpl"/>  
+		<property name="targetMethod" value="getAcceessToken"/>  
+		<!-- 是否允许任务并发执行。当值为false时，表示必须等到前一个线程处理完毕后才再启一个新的线程 -->  
+		<property name="concurrent" value="false"/>
+	</bean>
+	
+	<bean id="getAccessTokenTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">  
+		<property name="jobDetail" ref="getAccessTokenDetail"/>  
+		<property name="cronExpression" value="0 0  2  1 *  ? * "/><!--  每隔60秒触发一次  -->
+	</bean>
+			
+	<bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean">  
+		<property name="triggers">  
+			<list>  
+				<ref bean="getAccessTokenTrigger"/>
+			</list>  
+		</property>  
+		<property name="autoStartup" value="true"/>  
+	</bean> 
+</beans>
