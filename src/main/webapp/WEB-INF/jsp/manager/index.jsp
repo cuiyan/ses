@@ -10,6 +10,7 @@
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/easyui/themes/color.css">
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/base.css">
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/manager_main.css">
+   
 </head>
 <body class="easyui-layout layout panel-noscroll">
     <div class="easyui-layout" border="false" fit="true">
@@ -17,6 +18,7 @@
         	<div class="logo"></div>
         	<ul>
         		<li><a href="#" class="modifyPwd">修改密码</a></li>
+        		<li><a href="#" class="loginOut">退出</a></li>
         	</ul>
         </div>
         <div data-options="region:'south',split:true" style="height:50px;"></div>
@@ -24,7 +26,7 @@
         <ul class="easyui-tree tree">
         <li><div id="_easyui_tree_137" class="tree-node" onclick="open1('managerStudent','学生信息管理')"><span class="tree-title">学生信息管理</span></div></li>
         <li><div id="_easyui_tree_137" class="tree-node" onclick="open1('managerTeacher','教师信息管理')"><span class="tree-title">教师信息管理</span></div></li>
-        <li><div id="_easyui_tree_137" class="tree-node" onclick="open1('managerElect','课程管理')"><span class="tree-title">课程管理</span></div></li>
+        <li><div id="_easyui_tree_137" class="tree-node" onclick="open1('managerCourse','课程管理')"><span class="tree-title">课程管理</span></div></li>
         </ul>
         </div>
         <div data-options="region:'center'" class="panel-body panel-body-noheader layout-body panel-noscroll">
@@ -51,8 +53,8 @@
 		</div>
 		<iframe id="winSrc" frameborder="0" width="100%" height="100%"></iframe>
 	</div>
-    <script src="${pageContext.request.contextPath}/js/jquery-1.11.2.min.js"></script>
-    <script type="text/javascript" src="${pageContext.request.contextPath}/easyui/jquery.easyui.min.js"></script>
+   	<script src="${pageContext.request.contextPath}/js/jquery-1.11.2.min.js"></script>
+    <script src="${pageContext.request.contextPath}/easyui/jquery.easyui.min.js"></script>
     <script type="text/javascript" src="${pageContext.request.contextPath}/js/manager_main.js"></script>
     <script type="text/javascript" src="${pageContext.request.contextPath}/js/common.js"></script>
 <%-- 	<script type="text/javascript" src="${pageContext.request.contextPath}/js/studentManager.js"></script> --%>

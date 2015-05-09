@@ -30,6 +30,11 @@ public interface UserDao {
 	 * @param manager
 	 * @see 需要参考的类或方法
 	 */
-	public void add(BaseUser manager);
-
+	public void add(BaseUser baseUser);
+	/**
+	 * 更新密码
+	 * 
+	 * @param baseUser
+	 */
+	public void updatePassword(BaseUser baseUser);
 }

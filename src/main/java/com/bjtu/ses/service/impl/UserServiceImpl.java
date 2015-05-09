@@ -29,8 +29,8 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public void add(BaseUser manager) {
-		userDao.add(manager);
+	public void add(BaseUser baseUser) {
+		userDao.add(baseUser);
 	}
 
 	@Override
@@ -71,6 +71,11 @@ public class UserServiceImpl implements UserService {
 			throw new ManagerException("", ResultCode.O01);
 		}
 
+	}
+
+	@Override
+	public void updatePassword(BaseUser baseUser) {
+		userDao.updatePassword(baseUser);
 	}
 
 }

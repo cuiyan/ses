@@ -1,3 +1,6 @@
+ol ul{
+	list-style: none;
+}
 .context_box{
 	height:100%;
 }
@@ -61,6 +64,10 @@
 	width:80px;
 	height: 25px;
 }
+.w60{
+	width:60px;
+	height: 25px;
+}
 .importForm{
 	padding:80px 70px;
 }
@@ -69,4 +76,46 @@
 }
 .importForm div a{
 	width:100px;
+}
+.pwdForm{
+	padding: 15% 1%;
+}
+.pwdForm .fm_left{
+	float: left;
+	text-align: right;
+	padding-right: 10px;
+	width: 130px;
+}
+.pwdForm .fm_right{
+	float: left;
+}
+.pwdForm li{
+	padding: 6px 0;
+	clear: left;
+	line-height: 200%;
+	zoom: 1;
+}
+.pwdForm .submitBtn{
+	width:15%;
+	margin-left: 35%;
+	height: 25px;
+}
+.err{
+color: #ff0000;
+padding-left:10px;
+font-size: 12px;
+display: none;
+margin-left: 5px;
+}
+.courseAddForm{
+	padding:2% 1%;
+}
+.courseAddForm table tr td{
+	padding: 5px 2px;
+}
+.courseAddForm .addStuBtn{
+	margin-left: 60px;
+}
+.courseTDiv{
+	margin-top: 3px;
 }

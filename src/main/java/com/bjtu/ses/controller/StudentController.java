@@ -17,10 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.bjtu.ses.entity.SESConfig;
 import com.bjtu.ses.entity.Student;
-import com.bjtu.ses.enums.ConfigType;
-import com.bjtu.ses.service.SESConfigService;
 import com.bjtu.ses.service.StudentService;
 
 @Controller
@@ -28,8 +25,6 @@ import com.bjtu.ses.service.StudentService;
 public class StudentController {
 	@Resource
 	private StudentService studentService;
-	@Resource
-	private SESConfigService sesConfigService;
 
 	@RequestMapping("managerStudent")
 	public String managerStudent() {
@@ -81,16 +76,7 @@ public class StudentController {
 		map.put("errorMsg", false);
 		return map;
 	}
-	@RequestMapping("getDepart")
-	@ResponseBody
-	public List<SESConfig> getDepart() {
-		return sesConfigService.getList(ConfigType.DEPARWMT);
-	}
-	@RequestMapping("getClasses")
-	@ResponseBody
-	public List<SESConfig> getClasses(String departMent) {
-		return sesConfigService.getList(ConfigType.DEPARWMT, Integer.parseInt(departMent));
-	}
+
 	/**
 	 * 导入学生信息
 	 * 

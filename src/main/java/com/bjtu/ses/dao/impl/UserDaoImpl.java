@@ -28,7 +28,7 @@ public class UserDaoImpl implements UserDao {
 
 	@Override
 	public BaseUser findByUsername(String userName) {
-		String hql = "from User where userName = ? and status = ?";
+		String hql = "from BaseUser where userName = ? and status = ?";
 		Session session = sessionFactory.getCurrentSession();
 		Query query = session.createQuery(hql);
 		query.setParameter(0, userName);
@@ -42,5 +42,17 @@ public class UserDaoImpl implements UserDao {
 		Session session = sessionFactory.getCurrentSession();
 		session.save(manager);
 	}
-
+	/**
+	 * 更新密码
+	 * 
+	 * @param baseUser
+	 */
+	public void updatePassword(BaseUser baseUser) {
+		Session session = sessionFactory.getCurrentSession();
+		String hql = "update BaseUser set password=? where userName=?";
+		Query query = session.createQuery(hql);
+		query.setParameter(0, baseUser.getPassword());
+		query.setParameter(1, baseUser.getUserName());
+		query.executeUpdate();
+	}
 }

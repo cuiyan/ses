@@ -18,7 +18,7 @@ public class SESConfigDaoImpl implements SESConfigDao {
 	private SessionFactory sessionFactory;
 	@Override
 	public List<SESConfig> getList(ConfigType configType) {
-		String hql = "from SESConfig where configType=?  and level=0";
+		String hql = "from SESConfig where configType=?  and level=0 order by id asc";
 		Session session = sessionFactory.getCurrentSession();
 		Query query = session.createQuery(hql);
 		query.setParameter(0, configType);

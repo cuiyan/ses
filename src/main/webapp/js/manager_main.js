@@ -18,5 +18,9 @@ function open1(url,tabTitle){
 }
 
 $(".modifyPwd").click(function(){
-	open1("","修改密码");
+	$('#winSrc')[0].src='modifyPassword';
+	$('#dataForm').dialog('open');
+});
+$(".loginOut").click(function(){
+	window.location.href="loginOut";
 });

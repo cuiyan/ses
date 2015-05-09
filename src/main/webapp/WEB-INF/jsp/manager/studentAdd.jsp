@@ -3,22 +3,22 @@
 <!DOCTYPE>
 <html>
 <head>
-<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/easyui/themes/bootstrap/easyui.css">
-		<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/easyui/themes/icon.css">
-		<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/easyui/themes/color.css">
-		<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/base.css">
-		<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/manager_main.css">
+	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/easyui/themes/bootstrap/easyui.css">
+	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/easyui/themes/icon.css">
+	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/easyui/themes/color.css">
+	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/base.css">
+	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/manager_main.css">
 </head>
 <body>
 	<form id="studentAddForm" class="addForm">
 		<input type="hidden" value="${student.stuNo}" name="stuNo">
 		<div>学生姓名：<span>&nbsp;<input name="stuName" value="${student.stuName}" class="easyui-textbox w170"></span></div>
 		<div>所属学院：<span>
-			<input class="easyui-combobox w170" id="stuDepartNo" name="stuDepartNo"  value="${student.stuDepart}"  data-options="valueField:'id', textField:'text', panelHeight:'auto'">
+			<input class="easyui-combobox w170" id="stuDepartNo" name="stuDepartNo"  value="${student.stuDepartNo}"  data-options="valueField:'id', textField:'text', panelHeight:'auto'">
 			</span>
 		</div>
 		<div>所属班级：<span>
-				<input class="easyui-combobox w170" id="stuClassNo" name="stuClassNo"  value="${student.stuClass}" data-options="valueField:'id', textField:'text', panelHeight:'auto'">  
+				<input class="easyui-combobox w170" id="stuClassNo" name="stuClassNo"  value="${student.stuClassNo}" data-options="valueField:'id', textField:'text', panelHeight:'auto'">  
 			</span>
 		</div>
 		<div>所属年级：
@@ -48,7 +48,7 @@ $("#submitBtn").click(function(){
 	            return $(this).form('validate');
 	        },
 	        success: function(result){
-	            console.log(result);// {"errorMsg":false} todo has a bug
+	        	result = jQuery.parseJSON(result);
 	            if (result.errorMsg){
 	                $.messager.show({
 	                    title: 'Error',
@@ -94,6 +94,7 @@ function getDepart(){
 		async:false,
 		url:"${pageContext.request.contextPath}/manager/getDepart",
 		success:function(data){
+			console.log(data);
 			var data2 = [];
 			$.each(data,function(i,n){
 				data2.push({"text":n.configVal,"id":n.configKey});
