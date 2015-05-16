@@ -40,11 +40,12 @@
 		</li>
 	</ul>
 </form>
-
 </body>
 <script src="${pageContext.request.contextPath}/js/jquery-1.11.2.min.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/easyui/jquery.easyui.min.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/module.min.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/layer/layer.js"></script>
+
 <script type="text/javascript">
 $(".submitBtn").click(function(){
 	var oldPwdVal = $("#oldPwd").val();
@@ -78,13 +79,15 @@ $(".submitBtn").click(function(){
         	
            data = jQuery.parseJSON(data);
             if (!data.success){
-            	console.log(message);
                 $.messager.show({
                     title: 'Error',
                     msg: data.msg
                 });
             } else {
-            	parent.$('#dataForm').dialog('close');
+            	layer.msg('修改成功');
+            	setTimeout(function () { 
+            		parent.$('#dataForm').dialog('close');
+            	}, 2000);
             }
         }
     });

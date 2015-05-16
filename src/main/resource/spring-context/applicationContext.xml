@@ -37,7 +37,7 @@
 	<mvc:resources mapping="/img/**" location="/img/" />
 	<mvc:resources mapping="/easyui/**" location="/easyui/" />
 	<mvc:resources mapping="/frozenui/**" location="/frozenui/" />
-	
+	<mvc:resources mapping="/layer/**" location="/layer/" />
 	<bean 
 	    class="org.springframework.web.servlet.view.InternalResourceViewResolver"
 		p:prefix="/WEB-INF/jsp/" p:suffix=".jsp" />

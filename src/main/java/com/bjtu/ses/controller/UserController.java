@@ -29,11 +29,11 @@ public class UserController {
 	private UserService userSerive;
 	@RequestMapping("index")
 	public String managerIndex() {
-		return "manager/index";
+		return "index";
 	}
 	@RequestMapping("modifyPassword")
 	public ModelAndView modifyPassword() {
-		return new ModelAndView("manager/modifyPassword");
+		return new ModelAndView("modifyPassword");
 	}
 	@RequestMapping("modifyPwd")
 	@ResponseBody
