@@ -1,12 +1,16 @@
 package com.bjtu.ses.dao.impl;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
+import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 
 import com.bjtu.ses.dao.StudentDao;
@@ -24,7 +28,29 @@ public class StudentDaoImpl implements StudentDao {
 		Query query = session.createQuery(hql);
 		return query.list();
 	}
-
+	public List<Map<String, Object>> getList(Student student) {
+		Session session = sessionFactory.getCurrentSession();
+		DetachedCriteria dc = DetachedCriteria.forClass(Student.class);
+		if (!"".equals(student.getStuName()) && student.getStuName() != null) {
+			dc.add(Restrictions.like("stuName", "%" + student.getStuName() + "%"));
+		}
+		if (!"".equals(student.getStuDepartNo()) && student.getStuDepartNo() != null) {
+			dc.add(Restrictions.eq("stuDepartNo", student.getStuDepartNo()));
+		}
+		if (!"".equals(student.getStuClassNo()) && student.getStuClassNo() != null) {
+			dc.add(Restrictions.eq("stuClassNo", student.getStuClassNo()));
+		}
+		if (!"".equals(student.getStuGrade()) && student.getStuGrade() != null) {
+			dc.add(Restrictions.eq("stuGrade", student.getStuGrade()));
+		}
+		if (!"".equals(student.getIdDisabled()) && student.getIdDisabled() != null) {
+			dc.add(Restrictions.eq("idDisabled", student.getIdDisabled()));
+		}
+		Criteria cri = dc.getExecutableCriteria(session);
+		List<Map<String, Object>> list = cri.list();
+		// session.close();
+		return list;
+	}
 	@Override
 	public void add(Student student) {
 		Session session = sessionFactory.getCurrentSession();

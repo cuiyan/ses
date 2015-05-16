@@ -11,13 +11,21 @@ public interface CourseDao {
 	 * @see 需要参考的类或方法
 	 */
 	public List<Course> getList();
-
+	public List<Course> getList(Course course);
+	// public List<Map<String, Object>> getList(Course course);
 	/**
 	 * @Description 创建操作员
 	 * @param manager
 	 * @see 需要参考的类或方法
 	 */
 	public void add(Course course);
+	/**
+	 * 查询课程总数
+	 * 
+	 * @param course
+	 * @return
+	 */
+	public int getCount(Course course);
 
 	/**
 	 * 根据学号获取学生信息

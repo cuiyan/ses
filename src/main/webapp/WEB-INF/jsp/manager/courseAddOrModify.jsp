@@ -11,7 +11,6 @@
 </head>
 <body>
 	<form id="courseAddForm" class="courseAddForm">
-		<input type="hidden" value="${teacher.teaNo}" name="teaNo">
 		<table class="courseTable">
 			<tr>
 				<td>
@@ -26,10 +25,10 @@
 					教师姓名：
 				</td>
 				<td>
-					<input name="teaName" value="${teacher.teaName}" class="easyui-textbox w170">
-					<input type="button" style="cursor: hand;" value="查询">
-					<input type="hidden" name="teaNo">
-					<input type="hidden" name="teaName">
+					<input  class="w170 easyui-combobox" id="courseTeacher">
+<!-- 					<input type="button"  style="cursor: hand;" value="查询"> -->
+					<input type="hidden" name="teaNo" id="teaNo">
+					<input type="hidden" name="teaName" id="teaName">
 				</td>
 			</tr>
 			<tr>
@@ -38,10 +37,10 @@
 				</td>
 				<td>
 					<div class="courseTDiv">
-						<input name="courseWeek" id="courseWeek" value="${course.courseTime}" class="easyui-combobox w70" data-options="valueField:'id', textField:'text', panelHeight:'auto'">
-						<input name="courseDay" id="courseDay" value="${course.courseTime}" class="easyui-combobox w70"  data-options="valueField:'id', textField:'text', panelHeight:'auto'">
-						<input name="courseTime" id="courseTime" value="${course.courseTime}" class="easyui-combobox w70" data-options="valueField:'id', textField:'text', panelHeight:'auto'">
-						<input name="courseAddress" id="courseAddress" value="${course.courseAddress}" class="easyui-combobox w70">
+						<input name="courseEX[0].courseWeek" id="courseWeek" value="${course.courseTime}" class="easyui-combobox w70" data-options="valueField:'id', textField:'text', panelHeight:'auto'">
+						<input name="courseEX[0].courseDay" id="courseDay" value="${course.courseTime}" class="easyui-combobox w70"  data-options="valueField:'id', textField:'text', panelHeight:'auto'">
+						<input name="courseEX[0].courseTime" id="courseTime" value="${course.courseTime}" class="easyui-combobox w70" data-options="valueField:'id', textField:'text', panelHeight:'auto'">
+						<input name="courseEX[0].courseAddress" id="courseAddress" value="${course.courseAddress}" class="easyui-combobox w70" data-options="valueField:'id', textField:'text', panelHeight:'auto'">
 						<input type="button" class="add" style="cursor: hand;" value="增加">
 					</div>
 					
@@ -50,10 +49,10 @@
 			</tr>
 			<tr>
 				<td>
-					上课地点：
+					开课学院：
 				</td>
 				<td>
-					<input name="courseAddress" value="${course.courseAddress}" class="easyui-textbox w170">
+					<input name="courseDepartNo" value="${course.courseDepartNo}" id="courseDepartNo" class="easyui-combobox w170" data-options="valueField:'id', textField:'text', panelHeight:'auto'">
 				</td>
 			</tr>
 			<tr>
@@ -61,7 +60,7 @@
 					课程简介：
 				</td>
 				<td>
-					<textarea rows="" cols="" name="course"></textarea>
+					<textarea rows="" cols="" name="courseInfo"></textarea>
 				</td>
 			</tr>
 			<tr>
@@ -106,6 +105,8 @@
 
 <script type="text/javascript">
 $("#submitBtn").click(function(){
+	$("#teaNo").val($("#courseTeacher").combobox("getValue"));
+	$("#teaName").val($("#courseTeacher").combobox("getText"));
 	$("#courseAddForm").form('submit',{
 	        url: "${pageContext.request.contextPath}/manager/saveCourse",
 	        onSubmit: function(){
@@ -138,6 +139,7 @@ $(function(){
 // 	}
 // 	getStuGrade();
 	getCourseAddress();
+	getCourseDepartNo();
 })
 function getCourseWeek(){
 	$.ajax({
@@ -145,7 +147,6 @@ function getCourseWeek(){
 		async:false,
 		url:"${pageContext.request.contextPath}/manager/getCourseWeek",
 		success:function(data){
-			console.log(data);
 			var data2 = [];
 			$.each(data,function(i,n){
 				data2.push({"text":n.configVal,"id":n.configKey});
@@ -160,7 +161,6 @@ function getCourseDay(){
 		async:false,
 		url:"${pageContext.request.contextPath}/manager/getCourseDay",
 		success:function(data){
-			console.log(data);
 			var data2 = [];
 			$.each(data,function(i,n){
 				data2.push({"text":n.configVal,"id":n.configKey});
@@ -176,7 +176,6 @@ function getCourseTime(){
 		async:false,
 		url:"${pageContext.request.contextPath}/manager/getCourseTime",
 		success:function(data){
-			console.log(data);
 			var data2 = [];
 			$.each(data,function(i,n){
 				data2.push({"text":n.configVal,"id":n.configKey});
@@ -191,7 +190,6 @@ function getCourseAddress(){
 		async:false,
 		url:"${pageContext.request.contextPath}/manager/getCourseAddress",
 		success:function(data){
-			console.log(data);
 			var data2 = [];
 			$.each(data,function(i,n){
 				data2.push({"text":n.configVal,"id":n.configKey});
@@ -200,13 +198,28 @@ function getCourseAddress(){
 		}
 	});
 }
+function getCourseDepartNo(){
+	$.ajax({
+		type:"post",
+		async:false,
+		url:"${pageContext.request.contextPath}/manager/getDepart",
+		success:function(data){
+			var data2 = [];
+			$.each(data,function(i,n){
+				data2.push({"text":n.configVal,"id":n.configKey});
+			});
+			$("#courseDepartNo").combobox("loadData", data2);
+		}
+	});
+	
+}
 $(".add").click(function(){
-	var _id = $(".courseTDiv").length+1;
+	var _id = $(".courseTDiv").length;
 	$(this).parent().parent().append('<div class="courseTDiv">'+
-			'<input name="courseWeek" id="courseWeek_'+_id+'" value="${course.courseTime}" class=" w70" >'+
-			'&nbsp;<input name="courseDay" id="courseDay_'+_id+'" value="${course.courseTime}" class="w70"  >'+
-			'&nbsp;<input name="courseTime" id="courseTime_'+_id+'" value="${course.courseTime}" class="w70" >'+
-			'&nbsp;<input name="courseAddress" id="courseAddress_'+_id+'" value="${course.courseAddress}" class="w70">'+
+			'<input name="courseEX['+_id+'].courseWeek" id="courseWeek_'+_id+'" value="${course.courseTime}" class=" w70" >'+
+			'&nbsp;<input name="courseEX['+_id+'].courseDay" id="courseDay_'+_id+'" value="${course.courseTime}" class="w70"  >'+
+			'&nbsp;<input name="courseEX['+_id+'].courseTime" id="courseTime_'+_id+'" value="${course.courseTime}" class="w70" >'+
+			'&nbsp;<input name="courseEX['+_id+'].courseAddress" id="courseAddress_'+_id+'" value="${course.courseAddress}" class="w70">'+
 			'&nbsp;<input type="button"  style="cursor: hand;" onclick="deleteCourseT(this);" value="删除">'+
 			'</div>');
 	$('#courseWeek_'+_id).combobox({
@@ -233,5 +246,38 @@ $(".add").click(function(){
 function deleteCourseT(obj){
 	$(obj).parent().remove();
 }
+
+$('#courseTeacher').combobox({
+	prompt:'输入关键字后自动搜索',
+	required:true,
+	mode:'remote',
+	url:'getLikeTeacher',
+	editable:true,
+	hasDownArrow:false,
+	valueField:'teaNo',
+    textField:'teaName',
+	onBeforeLoad: function(param){
+// 		alert(param);
+//  		alert(param.q);
+		if(param == null || param.q == null || param.q == undefined || param.q.replace(/ /g, '') == ''){
+			console.log("------------");
+			var value = $(this).combobox('getValue');
+			if(value){// 修改的时候才会出现q为空而value不为空
+				param.id = value;
+				return true;
+			}
+			return false;
+		}
+	},
+	onLoadSuccess:function(data){
+		console.log(data);
+		var data2 = [];
+		$.each(data,function(i,n){
+			data2.push({"text":n.teaName,"id":n.teaNo});
+		});
+// 		console.log(data2);
+// 		$("#courseTeacher").combobox(data2);
+	}
+});
 </script>
 </html>

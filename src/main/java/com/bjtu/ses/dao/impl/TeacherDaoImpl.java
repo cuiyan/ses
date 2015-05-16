@@ -1,12 +1,16 @@
 package com.bjtu.ses.dao.impl;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
+import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 
 import com.bjtu.ses.dao.TeacherDao;
@@ -23,7 +27,23 @@ public class TeacherDaoImpl implements TeacherDao {
 		Query query = session.createQuery(hql);
 		return query.list();
 	}
-
+	public List<Map<String, Object>> getList(Teacher teacher) {
+		Session session = sessionFactory.getCurrentSession();
+		DetachedCriteria dc = DetachedCriteria.forClass(Teacher.class);
+		if (!"".equals(teacher.getTeaName()) && teacher.getTeaName() != null) {
+			dc.add(Restrictions.like("teaName", "%" + teacher.getTeaName() + "%"));
+		}
+		if (!"".equals(teacher.getTeaDepartNo()) && teacher.getTeaDepartNo() != null) {
+			dc.add(Restrictions.eq("teaDepartNo", teacher.getTeaDepartNo()));
+		}
+		if (!"".equals(teacher.getIsDisabled()) && teacher.getIsDisabled() != null) {
+			dc.add(Restrictions.eq("isDisabled", teacher.getIsDisabled()));
+		}
+		Criteria cri = dc.getExecutableCriteria(session);
+		List<Map<String, Object>> list = cri.list();
+		// session.close();
+		return list;
+	}
 	@Override
 	public void add(Teacher teacher) {
 		Session session = sessionFactory.getCurrentSession();
@@ -70,5 +90,17 @@ public class TeacherDaoImpl implements TeacherDao {
 		query.setParameter(3, teacher.getTeaNo());
 		query.executeUpdate();
 	}
-
+	/**
+	 * 根据教师姓名，模糊查询教师名称
+	 * 
+	 * @param teaName
+	 * @return
+	 */
+	public List<Teacher> getTeacherByTeaName(String teaName) {
+		String hql = "from Teacher where teaName like ?";
+		Session session = sessionFactory.getCurrentSession();
+		Query query = session.createQuery(hql);
+		query.setParameter(0, "%" + teaName + "%");
+		return query.list();
+	}
 }

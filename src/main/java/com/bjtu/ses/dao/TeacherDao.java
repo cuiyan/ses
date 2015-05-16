@@ -1,6 +1,7 @@
 package com.bjtu.ses.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import com.bjtu.ses.entity.Teacher;
 
@@ -11,7 +12,7 @@ public interface TeacherDao {
 	 * @see 需要参考的类或方法
 	 */
 	public List<Teacher> getList();
-
+	public List<Map<String, Object>> getList(Teacher teacher);
 	/**
 	 * @Description 创建操作员
 	 * @param manager
@@ -44,4 +45,12 @@ public interface TeacherDao {
 	 * @param Teacher
 	 */
 	public void updateTeacher(Teacher teacher);
+
+	/**
+	 * 根据教师姓名，模糊查询教师名称
+	 * 
+	 * @param teaName
+	 * @return
+	 */
+	public List<Teacher> getTeacherByTeaName(String teaName);
 }

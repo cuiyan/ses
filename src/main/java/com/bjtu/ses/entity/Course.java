@@ -1,13 +1,15 @@
 package com.bjtu.ses.entity;
 
 import java.util.Date;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.FetchType;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.transaction.Transactional;
 /**
  * 课程表
  * 
@@ -16,14 +18,24 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "SES_COURSE")
-public class Course {
-	private Long courseNo;
+public class Course extends AutoIDEntity {
+	private String courseNo;
 	private String teaNo;
 	private String teaName;
 	private String courseName;
-	private Date courseTime;
-	private String courseAddress;
+	private List<CourseEX> courseEX;
+	// private Date courseTime;
+	// private String courseAddress;
 	private String courseInfo;
+	private String courseTime;
+	/**
+	 * 开课学院编号
+	 */
+	private String courseDepartNo;
+	/**
+	 * 开课学院名称
+	 */
+	private String courseDepartName;
 	/**
 	 * 创建人代码
 	 */
@@ -48,16 +60,12 @@ public class Course {
 	 * 修改时间
 	 */
 	private Date modifyTime;
-	/**
-	 * 备用
-	 */
-	@Id
+
 	@Column(name = "COURSE_NO")
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	public Long getCourseNo() {
+	public String getCourseNo() {
 		return courseNo;
 	}
-	public void setCourseNo(Long courseNo) {
+	public void setCourseNo(String courseNo) {
 		this.courseNo = courseNo;
 	}
 	@Column(name = "TEA_NO")
@@ -81,20 +89,27 @@ public class Course {
 	public void setCourseName(String courseName) {
 		this.courseName = courseName;
 	}
-	@Column(name = "COURSE_TIME")
-	public Date getCourseTime() {
+	@OneToMany(mappedBy = "course", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	public List<CourseEX> getCourseEX() {
+		return courseEX;
+	}
+	public void setCourseEX(List<CourseEX> courseEX) {
+		this.courseEX = courseEX;
+	}
+	@Transactional
+	public String getCourseTime() {
 		return courseTime;
 	}
-	public void setCourseTime(Date courseTime) {
+	public void setCourseTime(String courseTime) {
 		this.courseTime = courseTime;
 	}
-	@Column(name = "COURSE_ADDTESS")
-	public String getCourseAddress() {
-		return courseAddress;
-	}
-	public void setCourseAddress(String courseAddress) {
-		this.courseAddress = courseAddress;
-	}
+	// @Column(name = "COURSE_ADDTESS")
+	// public String getCourseAddress() {
+	// return courseAddress;
+	// }
+	// public void setCourseAddress(String courseAddress) {
+	// this.courseAddress = courseAddress;
+	// }
 	@Column(name = "COURSE_INFO")
 	public String getCourseInfo() {
 		return courseInfo;
@@ -143,6 +158,20 @@ public class Course {
 	}
 	public void setModifyTime(Date modifyTime) {
 		this.modifyTime = modifyTime;
+	}
+	@Column(name = "COURSE_DEPART_NO")
+	public String getCourseDepartNo() {
+		return courseDepartNo;
+	}
+	public void setCourseDepartNo(String courseDepartNo) {
+		this.courseDepartNo = courseDepartNo;
+	}
+	@Column(name = "COURSE_DEPART_NAME")
+	public String getCourseDepartName() {
+		return courseDepartName;
+	}
+	public void setCourseDepartName(String courseDepartName) {
+		this.courseDepartName = courseDepartName;
 	}
 
 }

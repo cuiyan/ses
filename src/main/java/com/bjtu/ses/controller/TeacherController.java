@@ -1,5 +1,6 @@
 package com.bjtu.ses.controller;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -11,12 +12,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.bjtu.ses.entity.Teacher;
+import com.bjtu.ses.enums.Status;
 import com.bjtu.ses.model.JsonResultView;
 import com.bjtu.ses.service.TeacherService;
 
 @Controller
 @RequestMapping("/manager/")
-public class TeacherController {
+public class TeacherController extends BaseController {
 	@Resource
 	private TeacherService teacherService;
 
@@ -27,8 +29,18 @@ public class TeacherController {
 
 	@RequestMapping("queryTeacherList")
 	@ResponseBody
-	public List<Teacher> queryTeacherList() {
-		return teacherService.getList();
+	public Map<String, Object> queryTeacherList(Integer page, Integer rows, String teaName, String teaDepartNo, String isDisabled) {
+		Map<String, Object> result = new HashMap<String, Object>();
+		Teacher t = new Teacher();
+		t.setTeaName(teaName);
+		t.setTeaDepartNo(teaDepartNo);
+		if (!"".equals(isDisabled) && isDisabled != null) {
+			t.setIsDisabled(Status.valueOf(isDisabled));
+		}
+		List<Map<String, Object>> list = teacherService.getList(t);
+		result.put("rows", getByCursor(list, page, rows));
+		result.put("total", list.size());
+		return result;
 	}
 
 	@RequestMapping("addOrModifyTeacherPre")
@@ -51,5 +63,12 @@ public class TeacherController {
 			teacherService.saveTeacher(teacher);
 		}
 		return JsonResultView.ofSeccess(0);
+	}
+	@RequestMapping("getLikeTeacher")
+	@ResponseBody
+	public List<Teacher> getLikeTeacher(String q) {
+		List<Teacher> list = teacherService.getTeacherByTeaName(q);
+		return list;
+
 	}
 }

@@ -18,11 +18,12 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.bjtu.ses.entity.Student;
+import com.bjtu.ses.enums.Status;
 import com.bjtu.ses.service.StudentService;
 
 @Controller
 @RequestMapping("/manager/")
-public class StudentController {
+public class StudentController extends BaseController {
 	@Resource
 	private StudentService studentService;
 
@@ -32,9 +33,20 @@ public class StudentController {
 	}
 	@RequestMapping("queryStudentList")
 	@ResponseBody
-	public List<Student> queryStudentList() {
-		List<Student> list = studentService.getList();
-		return list;
+	public Map<String, Object> queryStudentList(Integer page, Integer rows, String stuName, String stuDepartNo, String stuClassNo, String stuGrade, String idDisabled) {
+		Map<String, Object> result = new HashMap<String, Object>();
+		Student s = new Student();
+		s.setStuName(stuName);
+		s.setStuDepartNo(stuDepartNo);
+		s.setStuClassNo(stuClassNo);
+		s.setStuGrade(stuGrade);
+		if (!"".equals(idDisabled) && idDisabled != null) {
+			s.setIdDisabled(Status.valueOf(idDisabled));
+		}
+		List<Map<String, Object>> list = studentService.getList(s);
+		result.put("rows", getByCursor(list, page, rows));
+		result.put("total", list.size());
+		return result;
 	}
 	/**
 	 * 添加学生
@@ -144,5 +156,4 @@ public class StudentController {
 		return map;
 
 	}
-
 }

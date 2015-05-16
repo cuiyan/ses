@@ -4,7 +4,11 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.Table;
+
+import com.bjtu.ses.enums.Status;
 
 /**
  * 教师表 教师ID规则：T00001
@@ -44,6 +48,11 @@ public class Teacher extends AutoIDEntity {
 	 * 修改时间
 	 */
 	private Date modifyTime;
+
+	/**
+	 * 是否有效
+	 */
+	private Status isDisabled;
 
 	@Column(name = "TEA_NO")
 	public String getTeaNo() {
@@ -115,4 +124,13 @@ public class Teacher extends AutoIDEntity {
 	public void setModifyTime(Date modifyTime) {
 		this.modifyTime = modifyTime;
 	}
+	@Enumerated(value = EnumType.STRING)
+	@Column(name = "IS_DISABLED")
+	public Status getIsDisabled() {
+		return isDisabled;
+	}
+	public void setIsDisabled(Status isDisabled) {
+		this.isDisabled = isDisabled;
+	}
+
 }

@@ -8,5 +8,5 @@ import com.bjtu.ses.enums.ConfigType;
 public interface SESConfigDao {
 	public List<SESConfig> getList(ConfigType configType);
 	public List<SESConfig> getList(ConfigType configType, Integer pLevel);
-	public SESConfig getByConfigKey(String configKey, Integer pLevel);
+	public SESConfig getByConfigKey(String configKey, Integer pLevel, ConfigType configType);
 }

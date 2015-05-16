@@ -5,20 +5,67 @@
 <div id="content">
 	<form class="queryForm">
 		<div >
-			<span>学生姓名：<input type="text" class="easyui-textbox"></span>
-			<span>所属学院：<input class="easyui-combobox " id="stuDepartNo" name="stuDepartNo"   data-options="valueField:'id', textField:'text', panelHeight:'auto'"></span>
-			<span>所属班级：<input class="easyui-combobox" id="stuClassNo" name="stuClassNo"   data-options="valueField:'id', textField:'text', panelHeight:'auto'"></span>
+			<span>学生姓名：<input type="text" id="stuName" name="stuName" class="easyui-textbox"></span>
+			<span>所属学院：<input class="easyui-combobox " id="stuDepartNo" name="stuDepartNo" 
+			data-options="
+			    valueField: 'configKey',
+			    textField: 'configVal',
+			    url: '${pageContext.request.contextPath}/manager/getDepart',
+			    onSelect: function(rec){
+			    console.log(rec);
+			    var url = '${pageContext.request.contextPath}/manager/getClasses?departMent='+rec.configKey;
+			    $('#stuClassNo').combobox('reload', url);
+			    }"></span>
+			<span>所属班级：<input class="easyui-combobox" id="stuClassNo" name="stuClassNo"   data-options="valueField:'configKey', textField:'configVal', panelHeight:'auto'"></span>
 		</div>
 		<div>
-			<span>所属年级：<input class="easyui-combobox" id="stuGradeaa" name="stuGrade"  data-options="valueField:'id', textField:'text', panelHeight:'auto'"></span>
-			<span>有效状态：<input type="text" class="easyui-textbox"></span>
+			<span>所属年级：<input class="easyui-combobox" id="stuGrade" name="stuGrade"
+			data-options="
+				valueField: 'id',
+				textField: 'text',
+				panelHeight:'auto',
+				data: [{
+					id: '2015',
+					text: '2015'
+				},{
+					id: '2014',
+					text: '2014'
+				},{
+					id: '2013',
+					text: '2013'
+				},{
+					id: '2012',
+					text: '2012'
+				},{
+					id: '2011',
+					text: '2011'
+				},{
+					id: '2010',
+					text: '2010'
+				}]"
+			 ></span>
+			<span>有效状态：<input type="text" class="easyui-combobox" id="idDisabled" name="idDisabled"
+			data-options="
+				valueField: 'id',
+				textField: 'text',
+				panelHeight:'auto',
+				data: [{
+					id: 'TRUE',
+					text: '有效',
+<!-- 					selected:true -->
+				},{
+					id: 'FALSE',
+					text: '无效'
+				}]"
+			></span>
 			<input type="button" class="easyui-linkbutton queryBtn" value="查询">
 		</div>
 	</form>
 
 <br>
-<table class="easyui-datagrid"   id="queryStudentList" >
-</table>
+<div style="height: 70%">
+<table class="easyui-datagrid"  style="overflow:hidden;" id="queryStudentList" ></table>
+</div>
 <script>
 
 var tab;
@@ -27,12 +74,14 @@ $(document).ready(function(){
 		url:"${pageContext.request.contextPath}/manager/queryStudentList",//加载的URL
 	   	//isField:"id","C:/Users/Administrator/Downloads/spring-security-samples-tutorial-3.1.0.CI-SNAPSHOT/WEB-INF/applicationContext-security.xml"
 		pagination:true,//显示分页
-		pageSize:5,//分页大小
+		pageSize:10,//分页大小
 		pageList:[5,10,15,20],//每页的个数
-		fit:true,//自动补全
-		fitColumns:true,
 		rownumbers:true,
 		toolbar:'#toolbar',
+		rownumbers:true, //是否显示行号  
+        rowStyler:function(value,row,index){return 'height:80px;';},
+        fitColumns:true, //自动调整各列  
+        fit:true, //自适应宽度
 		columns:[[      //每个列具体内容
 		          {field:'stuNo',title:'学号',width:100},
 	              {field:'stuName',title:'学生姓名',width:100},   
@@ -110,10 +159,9 @@ $(document).ready(function(){
 	
 // 	getDepart();
 // 	getClass(n);
-//getStuGrade();
-	
-});
 // getStuGrade();
+
+});
 /**
  * 设置学年
  */
@@ -125,45 +173,26 @@ function getStuGrade(){
 	for(var i=0;i<6;i++){
 		dataBox.push({"text":fullYear-i,"id":fullYear-i});
 	}
-	console.log(dataBox);
-	$("#stuGradeaa").combobox("loadData", dataBox);
+	$("#stuGradeaa").combobox("reload", dataBox);
 }
-/**
- * 获取学院
- */
-function getDepart(){
-	$.ajax({
-		type:"post",
-		async:false,
-		url:"${pageContext.request.contextPath}/manager/getDepart",
-		success:function(data){
-			var data2 = [];
-			$.each(data,function(i,n){
-				data2.push({"text":n.configVal,"id":n.configKey});
-			});
-			$("#stuDepartNo").combobox("loadData", data2);
-		}
-	});
-}
-/**
- * 设置专业
- */
-function getClass(n){
-	var data2 = [];
-	$.ajax({
-		type:"post",
-		url:"${pageContext.request.contextPath}/manager/getClasses",
-		data:"departMent="+n,
-		success:function(data){
-			$.each(data,function(i,n){
-				data2.push({"text":n.configVal,"id":n.configKey});
-			});
-			$("#stuClassNo").combobox("loadData", data2);
-		}
-	});
-}
+
 $(".queryBtn").click(function(){
-	
+	var stuNameVal = $("#stuName").val();
+	var stuDepartNoVal = $("#stuDepartNo").combobox("getValue");
+	var stuClassNoVal = $("#stuClassNo").combobox("getValue");
+	var stuGradeVal = $("#stuGrade").combobox("getValue");
+	var idDisabledVal = $("#idDisabled").combobox("getValue");
+	if(stuNameVal==null && stuDepartNoVal==null && stuClassNoVal==null && stuGradeVal==null && idDisabledVal==null){
+		alert("请至少输入一项进行查询");
+		return false;
+	}
+	tab.datagrid("load",{
+		"stuName" 		:stuNameVal,
+		"stuDepartNo"	: stuDepartNoVal,
+		"stuClassNo"	: stuClassNoVal,
+		"stuGrade"		: stuGradeVal,
+		"idDisabled"	: idDisabledVal
+ 	});
 });
 </script>
 </div>

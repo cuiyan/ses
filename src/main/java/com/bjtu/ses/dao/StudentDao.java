@@ -1,6 +1,7 @@
 package com.bjtu.ses.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import com.bjtu.ses.entity.Student;
 /**
@@ -16,7 +17,7 @@ public interface StudentDao {
 	 * @see 需要参考的类或方法
 	 */
 	public List<Student> getList();
-
+	public List<Map<String, Object>> getList(Student student);
 	/**
 	 * @Description 创建操作员
 	 * @param manager

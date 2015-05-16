@@ -55,11 +55,6 @@ $("#cancelBtn").click(function(){
 });
 $(function(){
 	getDepart();
-	var n = $("#stuDepartNo").combobox('getValue');//学院
-	if(n!=null){
-		getClass(n);
-	}
-	getStuGrade();
 })
 
 /**

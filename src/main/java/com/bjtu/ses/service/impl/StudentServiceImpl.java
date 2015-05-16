@@ -2,6 +2,7 @@ package com.bjtu.ses.service.impl;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
@@ -13,6 +14,7 @@ import com.bjtu.ses.dao.UserDao;
 import com.bjtu.ses.entity.BaseUser;
 import com.bjtu.ses.entity.SESConfig;
 import com.bjtu.ses.entity.Student;
+import com.bjtu.ses.enums.ConfigType;
 import com.bjtu.ses.enums.Status;
 import com.bjtu.ses.enums.UserRole;
 import com.bjtu.ses.service.StudentService;
@@ -30,12 +32,15 @@ public class StudentServiceImpl implements StudentService {
 	public List<Student> getList() {
 		return studentDao.getList();
 	}
+	public List<Map<String, Object>> getList(Student student) {
+		return studentDao.getList(student);
+	}
 	public void saveStudent(Student student) {
-		SESConfig ses = sesConfigDao.getByConfigKey(student.getStuDepartNo(), 0);
+		SESConfig ses = sesConfigDao.getByConfigKey(student.getStuDepartNo(), 0, ConfigType.DEPARWMT);
 		if (ses != null) {
 			student.setStuDepart(ses.getConfigVal());
 		}
-		ses = sesConfigDao.getByConfigKey(student.getStuClassNo(), Integer.parseInt(student.getStuDepartNo()));
+		ses = sesConfigDao.getByConfigKey(student.getStuClassNo(), Integer.parseInt(student.getStuDepartNo()), ConfigType.DEPARWMT);
 		if (ses != null) {
 			student.setStuClass(ses.getConfigVal());
 		}
@@ -71,11 +76,11 @@ public class StudentServiceImpl implements StudentService {
 	 * @param student
 	 */
 	public void updateStudent(Student student) {
-		SESConfig ses = sesConfigDao.getByConfigKey(student.getStuDepartNo(), 0);
+		SESConfig ses = sesConfigDao.getByConfigKey(student.getStuDepartNo(), 0, ConfigType.DEPARWMT);
 		if (ses != null) {
 			student.setStuDepart(ses.getConfigVal());
 		}
-		ses = sesConfigDao.getByConfigKey(student.getStuClassNo(), Integer.parseInt(student.getStuDepartNo()));
+		ses = sesConfigDao.getByConfigKey(student.getStuClassNo(), Integer.parseInt(student.getStuDepartNo()), ConfigType.DEPARWMT);
 		if (ses != null) {
 			student.setStuClass(ses.getConfigVal());
 		}

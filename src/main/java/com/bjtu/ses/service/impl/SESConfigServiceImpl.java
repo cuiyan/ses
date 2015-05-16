@@ -21,7 +21,7 @@ public class SESConfigServiceImpl implements SESConfigService {
 	public List<SESConfig> getList(ConfigType configType, Integer pLevel) {
 		return sesConfigDao.getList(configType, pLevel);
 	}
-	public SESConfig getByConfigKey(String configKey, Integer pLevel) {
-		return sesConfigDao.getByConfigKey(configKey, pLevel);
+	public SESConfig getByConfigKey(String configKey, Integer pLevel, ConfigType configType) {
+		return sesConfigDao.getByConfigKey(configKey, pLevel, configType);
 	}
 }

@@ -5,18 +5,33 @@
 <div id="content">
 	<form class="queryForm">
 		<div >
-			<span>教师姓名：<input type="text" class="easyui-textbox"></span>
-			<span>所属学院：<input class="easyui-combobox " id="stuDepartNo" name="stuDepartNo"   data-options="valueField:'id', textField:'text', panelHeight:'auto'"></span>
-		</div>
-		<div>
-			<span>有效状态：<input type="text" class="easyui-textbox"></span>
+			<span>教师姓名：<input type="text" id="teaName" name="teaName" class="easyui-textbox"></span>
+			<span>所属学院：<input class="easyui-combobox " id="teaDepartNo" name="teaDepartNo"  data-options="valueField:'configKey',textField:'configVal',url:'${pageContext.request.contextPath}/manager/getDepart'"></span>
+<!-- 		</div> -->
+<!-- 		<div> -->
+			<span>有效状态：<input type="text" id="isDisabled" name="isDisabled" class="easyui-combobox" 
+				data-options="
+				valueField: 'id',
+				textField: 'text',
+				panelHeight:'auto',
+				data: [{
+					id: 'TRUE',
+					text: '有效',
+<!-- 					selected:true -->
+				},{
+					id: 'FALSE',
+					text: '无效'
+				}]"
+			></span>
 			<input type="button" class="easyui-linkbutton queryBtn" value="查询">
 		</div>
 	</form>
 
 <br>
-<table class="easyui-datagrid"   id="queryTeacherList" >
+<div style="height: 80%">
+<table class="easyui-datagrid" style="overflow:hidden;"   id="queryTeacherList" >
 </table>
+</div>
 <script>
 
 var tab;
@@ -25,17 +40,18 @@ $(document).ready(function(){
 		url:"${pageContext.request.contextPath}/manager/queryTeacherList",//加载的URL
 	   	//isField:"id","C:/Users/Administrator/Downloads/spring-security-samples-tutorial-3.1.0.CI-SNAPSHOT/WEB-INF/applicationContext-security.xml"
 		pagination:true,//显示分页
-		pageSize:5,//分页大小
+		pageSize:10,//分页大小
 		pageList:[5,10,15,20],//每页的个数
-		fit:true,//自动补全
-		fitColumns:true,
-		rownumbers:true,
 		toolbar:'#toolbar',
+		rownumbers:true, //是否显示行号  
+        rowStyler:function(value,row,index){return 'height:80px;';},
+        fitColumns:true, //自动调整各列  
+        fit:true, //自适应宽度
 		columns:[[      //每个列具体内容
 		          {field:'teaNo',title:'教师编号',width:100},
 	              {field:'teaName',title:'教师姓名',width:100},   
 	              {field:'teaDepart',title:'所属学院',width:100},
-	              {field:'idDisabled',title:'有效状态',formatter:function(value){
+	              {field:'isDisabled',title:'有效状态',formatter:function(value){
 	            	  if("TRUE"==value){
 	            		  return "有效";
 	            	  }else{
@@ -102,7 +118,7 @@ $(document).ready(function(){
 	        }
 	})
 	
-// 	getDepart();
+//  	getDepart();
 // 	getClass(n);
 //getStuGrade();
 	
@@ -157,7 +173,18 @@ function getClass(n){
 	});
 }
 $(".queryBtn").click(function(){
-	
+	var teaNameVal = $("#teaName").val();
+	var teaDepartNoVal = $("#teaDepartNo").combobox("getValue");
+	var idDisabledVal = $("#isDisabled").combobox("getValue");
+	if(teaNameVal==null && teaDepartNoVal==null && idDisabledVal==null){
+		alert("请至少输入一项进行查询");
+		return false;
+	}
+	tab.datagrid("load",{
+		"teaName" 		:teaNameVal,
+		"teaDepartNo"	: teaDepartNoVal,
+		"isDisabled"	: idDisabledVal
+ 	});
 });
 </script>
 </div>

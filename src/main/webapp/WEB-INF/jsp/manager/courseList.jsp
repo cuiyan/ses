@@ -3,20 +3,18 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
 
 <div id="content">
-<!-- 	<form class="queryForm"> -->
-<!-- 		<div > -->
-<!-- 			<span>教师姓名：<input type="text" class="easyui-textbox"></span> -->
-<!-- 			<span>所属学院：<input class="easyui-combobox " id="stuDepartNo" name="stuDepartNo"   data-options="valueField:'id', textField:'text', panelHeight:'auto'"></span> -->
-<!-- 		</div> -->
-<!-- 		<div> -->
-<!-- 			<span>有效状态：<input type="text" class="easyui-textbox"></span> -->
-<!-- 			<input type="button" class="easyui-linkbutton queryBtn" value="查询"> -->
-<!-- 		</div> -->
-<!-- 	</form> -->
+	<form class="queryForm">
+		<div >
+			<span>课程名称：<input type="text" id="courseName" name="courseName" class="easyui-textbox"></span>
+			<input type="button" class="easyui-linkbutton queryBtn" value="查询">
+		</div>
+	</form>
 
 <br>
-<table class="easyui-datagrid"   id="queryCourseList" >
+<div style="height: 80%">
+	<table class="easyui-datagrid"  id="queryCourseList" >
 </table>
+</div>
 <script>
 
 var tab;
@@ -25,19 +23,19 @@ $(document).ready(function(){
 		url:"${pageContext.request.contextPath}/manager/queryCourseList",//加载的URL
 	   	//isField:"id","C:/Users/Administrator/Downloads/spring-security-samples-tutorial-3.1.0.CI-SNAPSHOT/WEB-INF/applicationContext-security.xml"
 		pagination:true,//显示分页
-		pageSize:5,//分页大小
+		pageSize:10,//分页大小
 		pageList:[5,10,15,20],//每页的个数
-		fit:true,//自动补全
-		fitColumns:true,
-		rownumbers:true,
+		rownumbers:true, //是否显示行号  
+        rowStyler:function(value,row,index){return 'height:80px;';},
+        fitColumns:true, //自动调整各列  
+        fit:true, //自适应宽度
 		toolbar:'#toolbar',
 		columns:[[      //每个列具体内容
 		          {field:'courseNo',title:'课程编号',width:100},
 	              {field:'courseName',title:'课程名称',width:100},   
-	              {field:'teaNo',title:'教师编号',width:100},
+// 	              {field:'teaNo',title:'教师编号',width:100},
 	              {field:'teaName',title:'教师姓名',width:100},
-	              {field:'courseTime',title:'上课时间',width:100},
-	              {field:'courseAddress',title:'上课地址',width:100},
+				  {field:'courseTime',title:'时间地点',width:100},
 	              {field:'courseInfo',title:'课程简介',width:100}
 	              
 	          ]],
@@ -155,7 +153,14 @@ function getClass(n){
 	});
 }
 $(".queryBtn").click(function(){
-	
+	var courseNameVal = $("#courseName").val();
+	if(courseNameVal ==null){
+		alert("请输入课程名称");
+		return false;
+	}
+	tab.datagrid("load",{
+		"courseName" :courseNameVal,
+ 	});
 });
 </script>
 </div>

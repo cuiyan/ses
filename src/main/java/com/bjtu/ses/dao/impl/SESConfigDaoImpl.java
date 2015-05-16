@@ -33,12 +33,13 @@ public class SESConfigDaoImpl implements SESConfigDao {
 		query.setParameter(1, pLevel);
 		return query.list();
 	}
-	public SESConfig getByConfigKey(String configKey, Integer pLevel) {
-		String hql = "from SESConfig where configKey=? and pLevel=?";
+	public SESConfig getByConfigKey(String configKey, Integer pLevel, ConfigType configType) {
+		String hql = "from SESConfig where configKey=? and pLevel=? and configType=?";
 		Session session = sessionFactory.getCurrentSession();
 		Query query = session.createQuery(hql);
 		query.setParameter(0, configKey);
 		query.setParameter(1, pLevel);
+		query.setParameter(2, configType);
 		return (SESConfig) query.uniqueResult();
 	}
 }
