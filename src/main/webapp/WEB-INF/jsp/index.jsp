@@ -27,6 +27,9 @@
         <li><div id="_easyui_tree_137" class="tree-node" onclick="open1('managerStudent','学生信息管理')"><span class="tree-title">学生信息管理</span></div></li>
         <li><div id="_easyui_tree_137" class="tree-node" onclick="open1('managerTeacher','教师信息管理')"><span class="tree-title">教师信息管理</span></div></li>
         <li><div id="_easyui_tree_137" class="tree-node" onclick="open1('managerCourse','课程管理')"><span class="tree-title">课程管理</span></div></li>
+        <li><div id="_easyui_tree_137" class="tree-node" onclick="open1('${pageContext.request.contextPath}/student/studentCourseManager','课程选择')"><span class="tree-title">课程选择</span></div></li>
+        <li><div id="_easyui_tree_137" class="tree-node" onclick="open1('${pageContext.request.contextPath}/student/studentHadCourse','已选课程')"><span class="tree-title">已选课程</span></div></li>
+        
         </ul>
         </div>
         <div data-options="region:'center'" class="panel-body panel-body-noheader layout-body panel-noscroll">
