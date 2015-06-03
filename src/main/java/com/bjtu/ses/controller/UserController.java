@@ -28,8 +28,11 @@ public class UserController {
 	@Resource
 	private UserService userSerive;
 	@RequestMapping("index")
-	public String managerIndex() {
-		return "index";
+	@ResponseBody
+	public ModelAndView managerIndex(HttpServletRequest request) {
+		String userName = (String) request.getSession(true).getAttribute("userName");
+		String userRole = request.getSession(true).getAttribute("userRole").toString();
+		return new ModelAndView("index").addObject("userName", userName).addObject("userRole", userRole);
 	}
 	@RequestMapping("modifyPassword")
 	public ModelAndView modifyPassword() {

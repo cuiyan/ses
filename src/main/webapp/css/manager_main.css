@@ -8,10 +8,14 @@ ol ul{
 	background: rgb(102, 102, 102);
 	border:0;
 }
-.nav_box .logo{
+.nav_box .welcome{
 	width:200px;
 	height:50px;
 	float:left;
+	margin-top: 26px;
+	margin-left: 20px;
+	color: #fff;
+	font-size: 14px;
 }
 .nav_box ul{
 	height:24px;

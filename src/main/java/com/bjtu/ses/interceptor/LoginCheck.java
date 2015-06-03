@@ -59,6 +59,8 @@ public class LoginCheck implements HandlerInterceptor {
 
 		try {
 			session.setAttribute("userName", manager.getUserName());
+			session.setAttribute("userRole", manager.getRole());
+
 			userService.statusCheck(manager, loginKey);
 		} catch (Exception e) {
 			log.error(e.getMessage());

@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.Map;
 
 import com.bjtu.ses.entity.Teacher;
-
 public interface TeacherService {
 	public List<Teacher> getList();
 	public List<Map<String, Object>> getList(Teacher teacher);
