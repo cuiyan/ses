@@ -63,6 +63,7 @@
 	</div>
    	<script src="${pageContext.request.contextPath}/js/jquery-1.11.2.min.js"></script>
     <script src="${pageContext.request.contextPath}/easyui/jquery.easyui.min.js"></script>
+
     <script type="text/javascript" src="${pageContext.request.contextPath}/js/manager_main.js"></script>
     <script type="text/javascript" src="${pageContext.request.contextPath}/js/common.js"></script>
 <%-- 	<script type="text/javascript" src="${pageContext.request.contextPath}/js/studentManager.js"></script> --%>

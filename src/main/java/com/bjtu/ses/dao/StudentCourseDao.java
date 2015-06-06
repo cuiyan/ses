@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.bjtu.ses.entity.Course;
 import com.bjtu.ses.entity.StudentCourse;
+import com.bjtu.ses.entity.StudentCourseVO;
 
 public interface StudentCourseDao {
 	/**
@@ -21,4 +22,6 @@ public interface StudentCourseDao {
 	public List<Course> getStuCourseList(String stuNo);
 	public void add(StudentCourse studentCourse);
 	public void deleteStudentCourse(StudentCourse studentCourse);
+
+	public List<StudentCourseVO> getStudentCourseList(String courseId);
 }

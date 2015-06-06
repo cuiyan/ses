@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.bjtu.ses.dao.StudentCourseDao;
 import com.bjtu.ses.entity.Course;
 import com.bjtu.ses.entity.StudentCourse;
+import com.bjtu.ses.entity.StudentCourseVO;
 import com.bjtu.ses.service.StudentCourseService;
 @Service
 public class StudentCourseServiceImpl implements StudentCourseService {
@@ -27,5 +28,15 @@ public class StudentCourseServiceImpl implements StudentCourseService {
 	}
 	public void deleteStudentCourse(StudentCourse studentCourse) {
 		studentCoursedao.deleteStudentCourse(studentCourse);
+	}
+
+	/**
+	 * 查询选择该课程的学生
+	 * 
+	 * @param courseNo
+	 * @return
+	 */
+	public List<StudentCourseVO> getStudentCourseList(String courseNo) {
+		return studentCoursedao.getStudentCourseList(courseNo);
 	}
 }

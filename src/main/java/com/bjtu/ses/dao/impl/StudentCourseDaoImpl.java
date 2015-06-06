@@ -12,6 +12,7 @@ import org.springframework.stereotype.Repository;
 import com.bjtu.ses.dao.StudentCourseDao;
 import com.bjtu.ses.entity.Course;
 import com.bjtu.ses.entity.StudentCourse;
+import com.bjtu.ses.entity.StudentCourseVO;
 @Repository
 public class StudentCourseDaoImpl implements StudentCourseDao {
 	@Resource
@@ -45,5 +46,12 @@ public class StudentCourseDaoImpl implements StudentCourseDao {
 		query.setParameter(1, studentCourse.getCourseNo());
 		query.executeUpdate();
 	}
+	public List<StudentCourseVO> getStudentCourseList(String courseId) {
+		String hql = "select new com.bjtu.ses.entity.StudentCourseVO(sc.studentNo,s.stuName ,s.stuDepart,s.stuClass, s.stuGrade, sc.courseScore) from StudentCourse sc,Student s where sc.studentNo = s.stuNo and sc.courseNo=?";
+		Session session = sessionFactory.getCurrentSession();
+		Query query = session.createQuery(hql);
+		query.setParameter(0, courseId);
+		return query.list();
 
+	}
 }

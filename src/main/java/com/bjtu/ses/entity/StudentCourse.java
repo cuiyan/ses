@@ -18,6 +18,10 @@ public class StudentCourse extends AutoIDEntity {
 	 * 课程序号
 	 */
 	private String courseNo;
+	/**
+	 * 成绩
+	 */
+	private Integer courseScore;
 
 	@Column(name = "STUNO")
 	public String getStudentNo() {
@@ -32,6 +36,13 @@ public class StudentCourse extends AutoIDEntity {
 	}
 	public void setCourseNo(String courseNo) {
 		this.courseNo = courseNo;
+	}
+	@Column(name = "COURSE_SCORE")
+	public Integer getCourseScore() {
+		return courseScore;
+	}
+	public void setCourseScore(Integer courseScore) {
+		this.courseScore = courseScore;
 	}
 
 }

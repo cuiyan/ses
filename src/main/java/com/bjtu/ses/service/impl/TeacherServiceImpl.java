@@ -46,6 +46,7 @@ public class TeacherServiceImpl implements TeacherService {
 		String lastRemark = StringUtils.getFiveLengthCode(count);
 		String teaNo = "t" + lastRemark;
 		teacher.setTeaNo(teaNo);
+		teacher.setIsDisabled(Status.TRUE);
 		teacherDao.add(teacher);
 		BaseUser baseUser = new BaseUser();
 		baseUser.setUserName(teaNo);

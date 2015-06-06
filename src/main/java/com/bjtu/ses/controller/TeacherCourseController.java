@@ -13,13 +13,18 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.bjtu.ses.entity.Course;
 import com.bjtu.ses.entity.CourseEX;
+import com.bjtu.ses.entity.StudentCourseVO;
+import com.bjtu.ses.service.StudentCourseService;
 import com.bjtu.ses.service.TeacherCourseService;
+import com.google.common.collect.Lists;
 
 @Controller
 @RequestMapping("teacher")
 public class TeacherCourseController extends BaseController {
 	@Autowired
 	private TeacherCourseService teacherCourseService;
+	@Autowired
+	private StudentCourseService studentCourseService;
 	@RequestMapping("teacherCourseManager")
 	public ModelAndView managerTeacher() {
 		return new ModelAndView("/teacher/teacherCourseList");
@@ -53,5 +58,12 @@ public class TeacherCourseController extends BaseController {
 			newList.add(course);
 		});
 		return newList;
+	}
+	@RequestMapping("queryStudentCourseList")
+	@ResponseBody
+	public List<StudentCourseVO> queryStudentCourseList(String courseNo) {
+		List<StudentCourseVO> list = Lists.newArrayList();
+		list = studentCourseService.getStudentCourseList(courseNo);
+		return list;
 	}
 }
